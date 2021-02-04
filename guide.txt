@@ -1,0 +1,26 @@
+-Para crear un branch nuevo
+ov250003@WMXOV250003-MUS MINGW64 ~/nodeProjects/nodejs_Backend (master)
+$ git checkout -b test
+Switched to a new branch 'test'
+
+-Para listar las branch disponibles
+ov250003@WMXOV250003-MUS MINGW64 ~/nodeProjects/nodejs_Backend (test)
+$ git branch --all
+  master
+* test
+  remotes/origin/master
+
+-Para cambiar de branch
+ov250003@WMXOV250003-MUS MINGW64 ~/nodeProjects/nodejs_Backend (test)
+$ git switch master
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+-Para agregar al stage area 
+git add 'y la ruta de los archivos modificados'
+
+-Para agregar el comentario
+git commit -m 'mensaje'
+
+git push --set-upstream origin
