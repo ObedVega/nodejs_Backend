@@ -4,7 +4,7 @@ const app = express();
 const productos = require("./modelos/productos");
 const delProducto = require("./modelos/DeleteProducto");
 const router = express.Router();
-const port = 4000;
+const port = process.env.PORT || 5000;
 
 var uri = "mongodb+srv://ovega:ovegaD3v@cluster0.pjijh.mongodb.net/CRUD-Ex?retryWrites=true&w=majority";
 
