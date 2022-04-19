@@ -20,9 +20,16 @@ app.listen(port, function() {
   console.log("Server is running on Port: " + port);
 });
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.get('/', (req, res) => {
     res.send('hello world')
 })
+
 
 //http://localhost:4000/getProducts
 app.get('/getProducts', (req, res) => {
