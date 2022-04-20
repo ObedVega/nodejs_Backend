@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const productos = require("./modelos/productos");
+const producto = require("./modelos/producto");
 const delProducto = require("./modelos/deleteProducto");
 const router = express.Router();
 const port = process.env.PORT || 5000;
 
-var uri = "mongodb+srv://ovega:ovegaD3v@cluster0.pjijh.mongodb.net/CRUD-Ex?retryWrites=true&w=majority";
+const uri = "mongodb+srv://ovega:ovegaD3v@cluster0.pjijh.mongodb.net/CRUD-Ex?retryWrites=true&w=majority";
 
 mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true });
 
@@ -44,17 +45,32 @@ app.get('/getProducts', (req, res) => {
     }); 
 })
 
+//http://localhost:4000/getProducto/id
+app.get('/getProducto', (req, res) => {
+    const p_id = req.query.id; 
+
+    productos.find({}).where('id').equals(p_id).exec(function(err, result){
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+})
+
 //http://localhost:4000/insProducts?id=01&url=02&cat=03&name=04&price=05&desc=06
 //http://localhost:4000/insProducts?id=02&url=https://images.boardriders.com/globalGrey/rvca-products/all/default/medium-large/m1031rct_rvca,f_blk_frt1.jpg&cat=Shorts&name=CURREN BOARDSHORTS 18&price=9.99&desc=06
 app.post('/insProducts', (req, res) => {
-    var p_id = req.query.id; 
-    var p_img_url = req.query.url; 
-    var p_categoria =req.query.cat; 
-    var p_name = req.query.name; 
-    var p_price = req.query.price;
-    var p_descripcion = req.query.desc;
+    const p_id = req.query.id; 
+    const p_img_url = req.query.url; 
+    const p_categoria =req.query.cat; 
+    const p_name = req.query.name; 
+    const p_price = req.query.price;
+    const p_descripcion = req.query.desc;
 
-    var data = [{
+    const data = [{
         id: p_id,
         img_url: p_img_url,
         categoria: p_categoria,
@@ -78,10 +94,11 @@ app.post('/insProducts', (req, res) => {
 
 //http://localhost:4000/delProduct?id=02
 app.delete('/delProduct', (req, res) => {
-    var p_id = req.query.id; 
-    var data = [{
+    const p_id = req.query.id; 
+    const data = [{
         id: p_id
       }];
+
     if(p_id!=''){
         delProducto.deleteOne(data, function(err, result) {
             if (err) {
