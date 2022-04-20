@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const productos = require("./modelos/productos");
-const producto = require("./modelos/producto");
 const delProducto = require("./modelos/deleteProducto");
 const router = express.Router();
 const port = process.env.PORT || 5000;
