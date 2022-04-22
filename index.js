@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const productos = require("./modelos/productos");
+const usuarios = require("./modelos/usuarios");
 const delProducto = require("./modelos/deleteProducto");
 const router = express.Router();
 const port = process.env.PORT || 5000;
@@ -58,12 +59,17 @@ app.get('/getProducto', (req, res) => {
         }
     });
 })
+
 //http://localhost:4000/search/text
 app.get('/search', (req, res) => {
-    const param_text = req.query.text; 
-    console.log(param_text); 
-    //productos.find({name:/towel/}, function(err, result) {
-        productos.find({}).where('name').equals(param_text).exec(function(err, result){    
+    const param_text =  req.query.text  ; 
+    param_text + '$';
+    productos.find({
+        $or:[
+            {name: { $regex: param_text, $options: 'i' }},
+            {descripcion: { $regex: param_text, $options: 'i' }}
+        ]
+    },function(err, result){    
         if (err) {
             console.log(err);
             res.send(err);
@@ -130,7 +136,7 @@ app.delete('/delProduct', (req, res) => {
 
 
 
-//http://localhost:4000/usuario?n=01&e=02&p=03
+//http://localhost:4000/usuario?n=obed&e=vega.obed@gmail.com&p=holamundo1
 app.post('/usuario', (req, res) => {
     const p_name = req.query.n; 
     const p_email = req.query.e; 
@@ -143,7 +149,7 @@ app.post('/usuario', (req, res) => {
         password: p_pass,
         cpassword:""
       }];
-
+    console.log(data);  
         usuarios.create(data, function(err, result){
             if(err){
                 console.log(err);
@@ -153,5 +159,9 @@ app.post('/usuario', (req, res) => {
                 res.send(result);
             }
         });
+})
 
+app.post('/usuarios', (req, res) => {
+    result = 'exito'
+    res.send(result);
 })

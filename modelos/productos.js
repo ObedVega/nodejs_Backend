@@ -12,16 +12,16 @@ let producto = new Schema(
       type: String
     },
     categoria: {
-        type: String
+      type: String
     },
     name: {
-        type: String
+      type: String 
     },
     price: {
-        type: String
+      type: String
     },
     descripcion: {
-        type: String
+      type: String
     }
   },
   { collection: "productos" }
