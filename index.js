@@ -58,6 +58,21 @@ app.get('/getProducto', (req, res) => {
         }
     });
 })
+//http://localhost:4000/search/text
+app.get('/search', (req, res) => {
+    const param_text = req.query.text; 
+    console.log(param_text); 
+    //productos.find({name:/towel/}, function(err, result) {
+        productos.find({}).where('name').equals(param_text).exec(function(err, result){    
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+})
 
 //http://localhost:4000/insProducts?id=01&url=02&cat=03&name=04&price=05&desc=06
 //http://localhost:4000/insProducts?id=02&url=https://images.boardriders.com/globalGrey/rvca-products/all/default/medium-large/m1031rct_rvca,f_blk_frt1.jpg&cat=Shorts&name=CURREN BOARDSHORTS 18&price=9.99&desc=06
@@ -111,4 +126,32 @@ app.delete('/delProduct', (req, res) => {
     }else{
         res.send('id incorrecto');
     }
+})
+
+
+
+//http://localhost:4000/usuario?n=01&e=02&p=03
+app.post('/usuario', (req, res) => {
+    const p_name = req.query.n; 
+    const p_email = req.query.e; 
+    const p_pass = req.query.p; 
+    
+    const data = [{
+        name: p_name,
+        lastname:"",
+        email: p_email,
+        password: p_pass,
+        cpassword:""
+      }];
+
+        usuarios.create(data, function(err, result){
+            if(err){
+                console.log(err);
+                res.send(err);
+            }else{
+                console.log(result);
+                res.send(result);
+            }
+        });
+
 })
