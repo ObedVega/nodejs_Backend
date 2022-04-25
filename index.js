@@ -137,10 +137,10 @@ app.delete('/delProduct', (req, res) => {
 
 
 //http://localhost:5000/usuario/obed/vega.obed@gmail.com/holamundo1
-app.get('/usuario/:n/:e/:p', (req, res) => {
-    const p_name = req.params.n; 
-    const p_email = req.params.e; 
-    const p_pass = req.params.p; 
+app.get('/usuario', (req, res) => {
+    const p_name = req.query.n; 
+    const p_email = req.query.e; 
+    const p_pass = req.query.p; 
     
     const data = [{
         name: p_name,
