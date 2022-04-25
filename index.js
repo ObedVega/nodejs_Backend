@@ -7,8 +7,8 @@ const delProducto = require("./modelos/deleteProducto");
 const router = express.Router();
 const port = process.env.PORT || 5000;
 
+/** DB Connection */
 const uri = "mongodb+srv://ovega:ovegaD3v@cluster0.pjijh.mongodb.net/CRUD-Ex?retryWrites=true&w=majority";
-
 mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true });
 
 const connection = mongoose.connection;
@@ -26,6 +26,9 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+/** Decode Form URL Encoded data */
+app.use(express.urlencoded());
 
 app.get('/', (req, res) => {
     res.send('hello world')
@@ -136,7 +139,7 @@ app.delete('/delProduct', (req, res) => {
 
 
 
-//http://localhost:5000/usuario/obed/vega.obed@gmail.com/holamundo1
+//http://localhost:5000/usuario?n=obed&e=vega.obed@gmail.com&p=holamundo1
 app.get('/usuario', (req, res) => {
     const p_name = req.query.n; 
     const p_email = req.query.e; 
@@ -150,13 +153,13 @@ app.get('/usuario', (req, res) => {
         cpassword:""
       }];
     console.log(data);  
-        usuarios.create(data, function(err, result){
+      usuarios.create(data, function(err, result){
             if(err){
                 console.log(err);
                 res.send(err);
             }else{
                 console.log(result);
-                res.send({"result":"Exito"});
+                res.send({"resultado":"Exito"});
             }
         });
 })
