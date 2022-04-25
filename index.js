@@ -61,8 +61,8 @@ app.get('/getProducto', (req, res) => {
 })
 
 //http://localhost:4000/search/text
-app.get('/search', (req, res) => {
-    const param_text =  req.query.text  ; 
+app.get('/search/:text', (req, res) => {
+    const param_text =  req.params.text  ; 
     param_text + '$';
     productos.find({
         $or:[
@@ -136,11 +136,11 @@ app.delete('/delProduct', (req, res) => {
 
 
 
-//http://localhost:4000/usuario?n=obed&e=vega.obed@gmail.com&p=holamundo1
-app.post('/usuario', (req, res) => {
-    const p_name = req.query.n; 
-    const p_email = req.query.e; 
-    const p_pass = req.query.p; 
+//http://localhost:5000/usuario/obed/vega.obed@gmail.com/holamundo1
+app.get('/usuario/:n/:e/:p', (req, res) => {
+    const p_name = req.params.n; 
+    const p_email = req.params.e; 
+    const p_pass = req.params.p; 
     
     const data = [{
         name: p_name,
@@ -161,7 +161,7 @@ app.post('/usuario', (req, res) => {
         });
 })
 
-app.post('/usuarios', (req, res) => {
+app.get('/usuarios', (req, res) => {
     result = 'exito'
     res.send(result);
 })
