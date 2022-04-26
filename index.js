@@ -64,7 +64,7 @@ app.get('/getProducto', (req, res) => {
 })
 
 //http://localhost:4000/search/text
-app.get('/search/:text', (req, res) => {
+app.get('/search', (req, res) => {
     const param_text =  req.params.text  ; 
     param_text + '$';
     productos.find({
@@ -85,7 +85,7 @@ app.get('/search/:text', (req, res) => {
 
 //http://localhost:4000/insProducts?id=01&url=02&cat=03&name=04&price=05&desc=06
 //http://localhost:4000/insProducts?id=02&url=https://images.boardriders.com/globalGrey/rvca-products/all/default/medium-large/m1031rct_rvca,f_blk_frt1.jpg&cat=Shorts&name=CURREN BOARDSHORTS 18&price=9.99&desc=06
-app.post('/insProducts', (req, res) => {
+app.get('/insProducts', (req, res) => {
     const p_id = req.query.id; 
     const p_img_url = req.query.url; 
     const p_categoria =req.query.cat; 
@@ -115,32 +115,44 @@ app.post('/insProducts', (req, res) => {
       }
 })
 
-//http://localhost:4000/delProduct?id=02
+//http://localhost:5000/delProduct?id=06
 app.delete('/delProduct', (req, res) => {
     const p_id = req.query.id; 
-    const data = [{
-        id: p_id
-      }];
 
     if(p_id!=''){
-        delProducto.deleteOne(data, function(err, result) {
+        delProducto.deleteOne({ id: p_id }, function(err, result) {
             if (err) {
                 console.log(err);
                 res.send(err);
             } else {
                 console.log(result);
-                res.send(result);
+                res.send({"resultado":"Registro Eliminado"});
             }
         }); 
-    }else{
-        res.send('id incorrecto');
     }
 })
 
+//http://localhost:5000/update?
+app.delete('/update', (req, res) => {
+    const p_id = req.query.id; 
 
+    if(p_id!=''){
+        delProducto.deleteOne({ id: p_id }, function(err, result) {
+            if (err) {
+                console.log(err);
+                res.send(err);
+            } else {
+                console.log(result);
+                res.send({"resultado":"Registro Eliminado"});
+            }
+        }); 
+    }
+})
+
+//######
 
 //http://localhost:5000/usuario?n=obed&e=vega.obed@gmail.com&p=holamundo1
-app.get('/usuario', (req, res) => {
+app.post('/usuario', (req, res) => {
     const p_name = req.query.n; 
     const p_email = req.query.e; 
     const p_pass = req.query.p; 
@@ -152,19 +164,15 @@ app.get('/usuario', (req, res) => {
         password: p_pass,
         cpassword:""
       }];
-    console.log(data);  
-      usuarios.create(data, function(err, result){
-            if(err){
-                console.log(err);
-                res.send(err);
-            }else{
-                console.log(result);
-                res.send({"resultado":"Exito"});
-            }
-        });
-})
 
-app.get('/usuarios', (req, res) => {
-    result = 'exito'
-    res.send(result);
+    usuarios.create(data, function(err, result){
+        if(err){
+            console.log(err);
+            res.send(err);
+        }else{
+            console.log(result);
+            //res.send({"resultado":"Exito"});
+            res.end;
+        }
+    });
 })
