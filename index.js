@@ -63,7 +63,7 @@ app.get('/getProducto', (req, res) => {
     });
 })
 
-//http://localhost:4000/search/text
+//Busquedas
 app.get('/search', (req, res) => {
     const param_text =  req.query.text  ; 
     param_text + '$';
@@ -83,8 +83,7 @@ app.get('/search', (req, res) => {
     });
 })
 
-//http://localhost:4000/insProducts?id=01&url=02&cat=03&name=04&price=05&desc=06
-//http://localhost:4000/insProducts?id=02&url=https://images.boardriders.com/globalGrey/rvca-products/all/default/medium-large/m1031rct_rvca,f_blk_frt1.jpg&cat=Shorts&name=CURREN BOARDSHORTS 18&price=9.99&desc=06
+//Inserta Productos
 app.get('/insProducts', (req, res) => {
     const p_id = req.query.id; 
     const p_img_url = req.query.url; 
