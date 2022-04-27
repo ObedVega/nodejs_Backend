@@ -65,7 +65,7 @@ app.get('/getProducto', (req, res) => {
 
 //http://localhost:4000/search/text
 app.get('/search', (req, res) => {
-    const param_text =  req.params.text  ; 
+    const param_text =  req.query.text  ; 
     param_text + '$';
     productos.find({
         $or:[
